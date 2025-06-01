@@ -2,12 +2,13 @@ import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
-async function listInvoices() {
+async function dropTable() {
 	const data = await sql`
-    SELECT invoices.amount, customers.name
-    FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
-    WHERE invoices.amount = 666;
+    SELECT table_name
+    FROM information_schema.tables
+    WHERE table_type = 'BASE TABLE'
+    AND table_schema = 'public'
+    ORDER BY table_name;
   `;
 
 	return data;
@@ -15,7 +16,7 @@ async function listInvoices() {
 
 export async function GET() {
   try {
-    return Response.json(await listInvoices());
+    return Response.json(await dropTable());
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
