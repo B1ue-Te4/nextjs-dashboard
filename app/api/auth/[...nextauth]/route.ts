@@ -1,7 +1,7 @@
 import { authConfig } from '@/auth.config'
 import NextAuth from 'next-auth'
 
-const handler = NextAuth(authConfig)
+const handlers = NextAuth(authConfig)
 
-export const GET = handler
-export const POST = handler
+export const GET = handlers.handlers.GET
+export const POST = handlers.handlers.POST
