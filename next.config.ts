@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
 
-const nextConfig = {
+const nextConfig: NextConfig = {
     experimental: {
       ppr: 'incremental', // mod for Chapter 10
       serverActions: {
